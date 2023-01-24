@@ -1,0 +1,69 @@
+-- LOGIN LARAVEL
+
+Creación de Proyecto Laravel
+Creación de API
+Creación de Login en Laravel
+
+Instalar y leer documentación
+Android Studio 
+POSTMAN
+
+composer require laravel/ui 
+php artisan ui bootstrap --auth 
+npm install 
+npm run dev
+
+composer require laravel/passport
+php artisan migrate
+php artisan passport:install
+
+Modifcar
+app/Models/User.php
+
+use Laravel\Passport\HasApiTokens;
+
+
+config/auth.php
+
+return [
+.....
+'guards' => [
+'web' => [
+'driver' => 'session',
+'provider' => 'users',
+],
+
+'api' => [
+'driver' => 'passport',
+'provider' => 'users',
+],
+],
+.....
+]
+
+Route::post('login',function(Request $request){
+
+    if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        $user = Auth::user();
+        //$success['token'] =  $user->createToken('MyApp')-> accessToken;
+        //$success['name'] =  $user->name;
+
+        $arr = array('acceso' => "Ok", 'error' => "", 'token' => $user->createToken('MyApp')-> accessToken);
+
+        return json_encode($arr);
+    }
+    else{
+
+        $arr = array('acceso' => "", 'error' => "No existe el usuario o contraseña", 'token' => "");
+
+        return json_encode($arr);
+    }
+   
+});
+
+->middleware('auth:api');
+
+POSTMAN
+headers
+Accept = application/json
+Authorization = Bearer "Token"
