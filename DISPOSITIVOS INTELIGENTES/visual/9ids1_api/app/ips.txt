@@ -1,0 +1,6 @@
+
+----MAC
+
+etworksetup -getinfo Wi-Fi
+192.168.100.174
+php artisan serve --host=192.168.100.174   
