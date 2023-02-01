@@ -1,7 +1,9 @@
 package com.uttec.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import com.uttec.myapplication.databinding.ActivityMainBinding
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     fun validaDatos(){
 
-        var url="http://192.168.100.174:8000/api/login"
+        var url="http://192.168.56.1:8000/api/login"
 
         val formBody: RequestBody = FormBody.Builder()
             .add("email",binding.txtUsuario.editText?.text.toString())
@@ -45,6 +47,9 @@ class MainActivity : AppCompatActivity() {
 
        client.newCall(request).enqueue(object: Callback {
            override fun onFailure(call: Call, e:IOException){
+               runOnUiThread{
+                   Toast.makeText(baseContext,"OCURRIO UN ERROR: "+e.message,Toast.LENGTH_LONG).show();
+               }
                println("FALLO: "+e.message.toString())
            }
            override fun onResponse(call:Call, response: Response){
@@ -55,8 +60,15 @@ class MainActivity : AppCompatActivity() {
                println("OK: "+ response.body?.toString())
 
                if (objRespuesta.acceso=="Ok"){
+                   runOnUiThread {
+                       var intent= Intent(baseContext, HomeActivity::class.java)
+                       startActivity(intent)
+                   }
                    println("TOKEN"+objRespuesta.token)
                }else{
+                   runOnUiThread{
+                       Toast.makeText(baseContext,"OCURRIO UN ERROR: "+objRespuesta.error,Toast.LENGTH_LONG).show();
+                   }
                    println("Error: "+objRespuesta.error)
                }
            }
