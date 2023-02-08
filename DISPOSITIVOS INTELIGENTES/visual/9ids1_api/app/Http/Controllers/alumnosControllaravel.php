@@ -31,4 +31,9 @@ class alumnosControllaravel extends Controller
         $alumno->delete();
         return "ok";
     }
+
+    public function lista(Request $request){
+        $alumno =m_alumnos::all();
+        return $alumno;
+    }
 }
