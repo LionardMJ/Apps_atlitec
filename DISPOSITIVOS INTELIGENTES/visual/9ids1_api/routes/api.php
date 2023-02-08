@@ -42,3 +42,4 @@ Route::post('login',function(Request $request){
 
 Route::post('alumno/guardar',[alumnosControllaravel::class,'guardar'])->middleware('auth:api');
 Route::post('alumno/delete',[alumnosControllaravel::class,'eliminar'])->middleware('auth:api');
+Route::get('alumnos',[alumnosControllaravel::class,'lista']);

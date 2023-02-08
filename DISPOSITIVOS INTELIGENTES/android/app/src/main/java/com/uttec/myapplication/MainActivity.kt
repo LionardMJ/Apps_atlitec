@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     fun validaDatos(){
 
-        var url="http://192.168.56.1:8000/api/login"
+        var url=VariablesGlobales.url_login
 
         val formBody: RequestBody = FormBody.Builder()
             .add("email",binding.txtUsuario.editText?.text.toString())
