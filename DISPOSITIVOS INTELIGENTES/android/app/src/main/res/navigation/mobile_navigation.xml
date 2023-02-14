@@ -22,4 +22,10 @@
         android:name="com.uttec.myapplication.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_nuevo_alumno"
+        android:name="com.uttec.myapplication.ui.home.NuevoAlumnoFragment"
+        android:label="Alumnos"
+        tools:layout="@layout/fragment_nuevo_alumno" />
 </navigation>

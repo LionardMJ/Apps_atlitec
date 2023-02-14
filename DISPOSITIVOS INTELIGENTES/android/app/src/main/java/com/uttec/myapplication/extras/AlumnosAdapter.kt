@@ -3,7 +3,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.uttec.myapplication.R
 
 class AlumnosAdapter (private val dataSet: Array<Models.Alumno>) :
@@ -42,6 +45,12 @@ class AlumnosAdapter (private val dataSet: Array<Models.Alumno>) :
 
         viewHolder.itemView.setOnClickListener {
 
+            var objGson = Gson()
+            var json_alumnos=objGson.toJson(dataSet[position])
+            val bundle= bundleOf("json_alumnos" to json_alumnos)
+
+            var navController= Navigation.findNavController(it)
+            navController.navigate(R.id.nav_nuevo_alumno,bundle)
         }
 
         viewHolder.txtNombre.text = dataSet[position]?.nombre
